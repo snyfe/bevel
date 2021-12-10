@@ -13,8 +13,8 @@ echo "Adding env variables..."
 export PATH=/root/bin:$PATH
 
 #Path to k8s config file
-KUBECONFIG=/home/blockchain-automation-framework/build/config
+KUBECONFIG=/home/ksuplico/.kube/config
 
 
 echo "Running the playbook..."
-exec ansible-playbook -vv /home/blockchain-automation-framework/platforms/shared/configuration/site.yaml --inventory-file=/home/blockchain-automation-framework/platforms/shared/inventory/ -e "@/home/blockchain-automation-framework/build/network.yaml" -e 'ansible_python_interpreter=/usr/bin/python3' -e "reset='true'"
+exec ansible-playbook -vv /home/ksuplico/baf/bevel/platforms/shared/configuration/site.yaml --inventory-file=/home/ksuplico/baf/bevel/platforms/shared/inventory/ -e "@/home/ksuplico/baf/bevel/build/network.yaml" -e 'ansible_python_interpreter=/usr/bin/python3' -e "reset='true'"
