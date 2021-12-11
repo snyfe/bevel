@@ -1,0 +1,33 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: warehouse-vaultkubenertes-job
+  namespace: warehouse-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: warehouse-vaultkubenertes-job
+  chart:
+    git: git@github.com:snyfe/bevel.git
+    ref: develop
+    path: examples/supplychain-app/charts/vault_kubernetes
+  values:
+    metadata:
+      name: warehouse
+      component_type: peer
+      namespace: warehouse-net    
+      images:
+        alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
+
+    vault:
+      reviewer_service: vault-reviewer
+      role: vault-role
+      address: http://10.1.0.50:8200
+      authpath: devwarehouse-net-auth
+      policy: vault-crypto-peer-warehouse-net-ro
+      secret_path: secretsv2
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+    
+    k8s:
+      kubernetes_url: https://kubernetes.docker.internal:6443
